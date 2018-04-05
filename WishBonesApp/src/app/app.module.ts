@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { UserService } from './user.service';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
@@ -16,7 +17,7 @@ import { HomeComponent } from './home/home.component';
     FormsModule,
     HttpModule
   ],
-  providers: [],
+  providers: [UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,8 +1,8 @@
 {
   "name": "wishbones-package",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "WishBones- Customizeable wish list for individuals with a lot of needs and wants",
+  "main": "server.js",
   "dependencies": {
     "bcrypt": "^1.0.3",
     "bcryptjs": "^2.4.3",
