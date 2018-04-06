@@ -43,3 +43,5 @@ module.exports.comparePassword = function(passwordInput, hash, callback) {
         callback(null, match);
     });
 }
+
+// 

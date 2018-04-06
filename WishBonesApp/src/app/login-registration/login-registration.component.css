@@ -1,0 +1,16 @@
+#headline {
+    text-align: center;
+    margin-left: 110px;
+    font-size: 50px;
+    color: gray;
+}
+
+button {
+    margin-top: 10px;
+    display: block;
+    width: 150px;
+}
+
+.col-3 {
+    border: 2px solid green;
+}

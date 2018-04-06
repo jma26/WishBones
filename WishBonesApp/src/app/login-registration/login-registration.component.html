@@ -1,0 +1,58 @@
+<div class='container'>
+  <div class='row justify-content-center'>
+    <div class='col'>
+      <h1 id='headline'> Login &amp; Registration </h1>
+    </div>
+  </div>
+  <div class='row justify-content-around'>
+    <div class='col-3'>
+      <!-- Login Form -->
+      <form (ngSubmit)='login()' id='loginForm'>
+        <!-- <p> {{ user | json }} </p> -->
+        <div class='form-group'>
+          <label for='email'> Email Address </label>
+          <input type='text' class='form-control' [(ngModel)]='user.email' name='email'>
+        </div>
+        <div class='form-group'>
+          <label for='password'> Password </label> 
+          <input type='password' class='form-control' [(ngModel)]='user.password' name='password'>
+        </div>
+        <button> Login </button>
+      </form>
+      <!-- End of Login Form -->
+    </div>
+    <div class='col-3'>
+      <!-- Registration Form -->
+      <form (ngSubmit)='registration()' id='registrationForm'>
+        <!-- <p> {{ newUser | json }} </p> -->
+        <div class='form-group'>
+          <label for='alias'> Username </label>
+          <input type='text' class='form-control' [(ngModel)]='newUser.alias' name='alias'>
+        </div>
+        <div class='form-group'>
+          <label for='firstName'> First Name </label>
+          <input type='text' class='form-control' [(ngModel)]='newUser.fname' name='fname'>
+        </div>
+        <div class='form-group'>
+          <label for='lastName'> Last Name </label>
+          <input type='text' class='form-control' [(ngModel)]='newUser.lname' name='lname'>
+        </div>
+        <div class='form-group'>
+          <label for='email'> Email Address </label>
+          <input type='text' class='form-control' [(ngModel)]='newUser.email' name='email'>
+        </div>
+        <div class='form-group'>
+          <label for='password'> Password </label>
+          <input type='password' class='form-control' [(ngModel)]='newUser.password' name='password'>
+        </div>
+        <div class='form-group'>
+          <label for='passwordconfirm'> Confirm Password </label>
+          <input type='password' class='form-control' [(ngModel)]='newUser.passwordconfirm' name='passwordconfirm'>
+        </div>
+        <button type='submit'> Register </button>
+      </form>
+      <!-- End of Registration Form -->
+    </div>
+  </div>
+</div>
+
