@@ -34,8 +34,16 @@ export class LoginRegistrationComponent implements OnInit {
    }
 
    registration() {
-     console.log('Registration detected');
-     this._registerService.registerUser();
+     console.log('Registration at login-registration component pinging');
+     let observable = this._registerService.registerUser(this.newUser);
+     observable.subscribe(data => {
+       console.log(data);
+       if (data['errors']) {
+         console.log(data['errors']);
+       } else {
+         console.log('Successful creation');
+       }
+     })
    }
 
 

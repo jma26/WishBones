@@ -2,43 +2,34 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const config = require('./config/database');
-
-// Connect to database
-mongoose.connect(config.database);
-
-// On Connection
-mongoose.connection.on('connected', () => {
-    console.log(`Connected to database ${config.database}`);
-});
-
-// On Error
-mongoose.connection.on('error', () => {
-    console.log('Database error:' + err);
-});
 
 // Initialize express
 const app = express();
 
+// Body Parser Middleware
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, './client/static')));
+app.use(bodyParser.json());
+
+// Angular app
+app.use(express.static(path.join(__dirname, '/WishBonesApp/dist')));
+
+// Require mongoose.js to connect to mongoDB
+require('./server/config/mongoose.js');
+
+// Require routes.js for server routing
+let route = require('./server/config/routes.js');
+route(app);
+
+// Catch all route to Angular routes
+app.all("*", (request, response, next) => {
+    response.send(path.resolve("./WishBonesApp/dist/index.html"))
+});
+
 // Port Number
 const port = 8000;
 
-const users = require('./routes/users');
-
-// Body Parser Middleware
-app.use(bodyParser.json());
-
-// Set Static Folder to Public
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.use('/users', users);
-
-// Index route
-app.get('/', (request, response) => {
-    response.send('Hello World');
-})
-
-// Start Server
+// Server Port
 app.listen(port, () => {
     console.log(`Listening to port ${port}`);
 })
