@@ -1,9 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { UserService } from './user.service';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
+import { RegisterService } from './services/register.service';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -26,7 +26,7 @@ const appRoutes: Routes = [
     HttpModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [UserService],
+  providers: [RegisterService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

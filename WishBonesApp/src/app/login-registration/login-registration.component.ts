@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RegisterService } from '../services/register.service';
 
 @Component({
   selector: 'app-login-registration',
@@ -8,7 +9,8 @@ import { Component, OnInit } from '@angular/core';
 export class LoginRegistrationComponent implements OnInit {
   newUser: any;
   user: any;
-  constructor() { }
+
+  constructor(private _registerService: RegisterService) { }
 
   ngOnInit() {
     // 2-way binding
@@ -25,5 +27,17 @@ export class LoginRegistrationComponent implements OnInit {
       password: ''
     }
    }
+
+   login() {
+     console.log('Login detected' + this.user);
+     console.log(this.user.email, this.user.password);
+   }
+
+   registration() {
+     console.log('Registration detected');
+     this._registerService.registerUser();
+   }
+
+
 
 }
