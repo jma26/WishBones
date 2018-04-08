@@ -11,7 +11,7 @@ module.exports = {
         bcrypt.genSalt(10, (error, salt) => {
             bcrypt.hash(unhashedPassword, salt, (error, hash) => {
                 if (error) {
-                    throw error;
+                    response.json('Password is empty');
                 } else {
                     hashedPassword = hash;
 
@@ -36,23 +36,25 @@ module.exports = {
                 }
             })
         })
-
-
-        // let user = new User({first_name: request.body.fname, last_name: request.body.lname, alias: request.body.alias, email: request.body.email, password: hashedPassword });
-        // user.save(function(error, result) {
-        //     if (error) {
-        //         console.log('Unsuccessful User Creation');
-        //         response.json(error);
-        //     } else {
-        //         console.log('Successful User Creation');
-        //         User.find({}, function(error, result) {
-        //             if (error) {
-        //                 response.json(error);
-        //             } else {
-        //                 response.json(result);
-        //             }
-        //         })
-        //     }
-        // })
+    },
+    retrieve: function(request, response) {
+        console.log(request.body);
     }
 }
+
+// let user = new User({first_name: request.body.fname, last_name: request.body.lname, alias: request.body.alias, email: request.body.email, password: hashedPassword });
+// user.save(function(error, result) {
+//     if (error) {
+//         console.log('Unsuccessful User Creation');
+//         response.json(error);
+//     } else {
+//         console.log('Successful User Creation');
+//         User.find({}, function(error, result) {
+//             if (error) {
+//                 response.json(error);
+//             } else {
+//                 response.json(result);
+//             }
+//         })
+//     }
+// })

@@ -25,5 +25,8 @@
   "bugs": {
     "url": "https://github.com/jma26/WishBones/issues"
   },
-  "homepage": "https://github.com/jma26/WishBones#readme"
+  "homepage": "https://github.com/jma26/WishBones#readme",
+  "devDependencies": {
+    "@angular/cli": "^1.7.4"
+  }
 }

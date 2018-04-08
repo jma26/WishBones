@@ -8,4 +8,9 @@ module.exports = function(app) {
         console.log('Creating new user, @routes.js pinging');
         Users.create(request, response);
     })
+    // Retrieving user for validation
+    app.get('/login', function(request, response) {
+        console.log('Retrieving user for validation, @routes.js pinging');
+        Users.retrieve(request, response);
+    })
 }

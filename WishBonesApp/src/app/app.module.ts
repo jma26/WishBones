@@ -7,6 +7,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule } from './app-routing/app-routing.module';
 
 // Services
+import { LoginService } from './services/login.service';
 import { RegisterService } from './services/register.service';
 
 import { AppComponent } from './app.component';
@@ -25,7 +26,7 @@ import { LoginRegistrationComponent } from './login-registration/login-registrat
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [RegisterService],
+  providers: [RegisterService, LoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
