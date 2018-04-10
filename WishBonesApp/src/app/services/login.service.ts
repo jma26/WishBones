@@ -8,7 +8,7 @@ export class LoginService {
 
   loginUser(user) {
     console.log('Login.service.ts pinging ' + user);
-    return this._http.get('/login', user);
+    return this._http.post('/login', user);
   }
 
 }

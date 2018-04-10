@@ -32,6 +32,9 @@ export class LoginRegistrationComponent implements OnInit {
   login() {
     console.log('Login at login-registration component pinging');
     let observable = this._loginService.loginUser(this.user);
+    observable.subscribe(data => {
+      console.log('Observable data here ', data);
+    })
   }
 
   registration() {
@@ -52,6 +55,7 @@ export class LoginRegistrationComponent implements OnInit {
         if (data['errors']) {
           console.log(data['errors']);
         } else {
+          // Return registered user's information
           console.log(data);
           console.log('Successful creation');
         }

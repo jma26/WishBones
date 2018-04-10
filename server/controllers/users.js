@@ -23,7 +23,7 @@ module.exports = {
                             response.json(error);
                         } else {
                             console.log('Successful User Creation');
-                            User.find({}, function(error, result) {
+                            User.find({"email": user.email}, function(error, result) {
                                 if (error) {
                                     response.json(error);
                                 } else {
@@ -37,24 +37,27 @@ module.exports = {
             })
         })
     },
-    retrieve: function(request, response) {
-        console.log(request.body);
+    login: function(request, response) {
+        console.log('users.js @controllers detected ', request.body);
+        // Find login information from db
+        User.findOne({"email": request.body.email}, function(error, result) {
+            if (error) {
+                response.json('Email not found');
+            } else {
+                // If email does not exist, result will be null or length of 0 (empty)
+                if (result === null || result.length === 0) {
+                    response.json({success: false, message: 'Email not found'});
+                // If email exists, run bcrypt compare
+                } else {
+                    bcrypt.compare(request.body.password, result.password, function(error, boolean) {
+                        if (error) {
+                            response.json('Password does not match');
+                        } else {
+                            response.json({success: boolean, profile: result});
+                        }
+                    })
+                }
+            }
+        })
     }
 }
-
-// let user = new User({first_name: request.body.fname, last_name: request.body.lname, alias: request.body.alias, email: request.body.email, password: hashedPassword });
-// user.save(function(error, result) {
-//     if (error) {
-//         console.log('Unsuccessful User Creation');
-//         response.json(error);
-//     } else {
-//         console.log('Successful User Creation');
-//         User.find({}, function(error, result) {
-//             if (error) {
-//                 response.json(error);
-//             } else {
-//                 response.json(result);
-//             }
-//         })
-//     }
-// })
