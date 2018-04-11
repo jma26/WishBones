@@ -13,14 +13,23 @@
           <label for='email'> Email Address </label>
           <input type='text' class='form-control' [(ngModel)]='user.email' name='email'>
         </div>
+        <!-- Display error if email field is empty -->
+        <p ng-show='loginFieldBoolean.emailField' class='showError' [ngClass]="{'error-field': !loginFieldBoolean.emailField}"> Empty Email Field </p>
         <div class='form-group'>
           <label for='password'> Password </label> 
           <input type='password' class='form-control' [(ngModel)]='user.password' name='password'>
         </div>
+        <!-- Display error if password field is empty -->
+        <p ng-show='loginFieldBoolean.passwordField' class='showError' [ngClass]="{'error-field': !loginFieldBoolean.passwordField}"> Empty Password Field </p>
+        <!-- Display error if any from db -->
+        <p ng-show='loginFieldBoolean.errorDisplay' class='showError' [ngClass]="{'error-field': !loginFieldBoolean.errorDisplay}"> {{ errors }} </p>
         <button> Login </button>
       </form>
       <!-- End of Login Form -->
     </div>
+
+
+
     <div class='col-3'>
       <!-- Registration Form -->
       <form (ngSubmit)='registration()' id='registrationForm'>

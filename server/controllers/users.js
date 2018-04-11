@@ -51,9 +51,15 @@ module.exports = {
                 } else {
                     bcrypt.compare(request.body.password, result.password, function(error, boolean) {
                         if (error) {
-                            response.json('Password does not match');
+                            response.json(error);
                         } else {
-                            response.json({success: boolean, profile: result});
+                            // Send error message  if password does not match
+                            if (boolean === false) {
+                                response.json({success: boolean, error: 'Password does not match'});
+                            // Send profile info if password does match
+                            } else {
+                                response.json({success: boolean, profile: result});
+                            }
                         }
                     })
                 }

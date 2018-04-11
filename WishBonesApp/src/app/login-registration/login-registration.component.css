@@ -6,7 +6,6 @@
 }
 
 button {
-    margin-top: 10px;
     display: block;
     width: 150px;
 }
@@ -14,3 +13,16 @@ button {
 .col-3 {
     border: 2px solid green;
 }
+
+/* Preserves space when error messages are hidden */
+.error-field {
+    display: inline-block !important;
+    visibility: hidden;
+    border: 1px solid green;
+}
+
+.showError {
+    color: red;
+    border: 1px solid blue;
+}
+
