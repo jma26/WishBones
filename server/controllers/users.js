@@ -15,7 +15,7 @@ module.exports = {
                 } else {
                     hashedPassword = hash;
 
-                    let user = new User({first_name: request.body.fname, last_name: request.body.lname, alias: request.body.alias, email: request.body.email, password: hashedPassword });
+                    let user = new User({fullName: request.body.fullName, alias: request.body.alias, email: request.body.email, password: hashedPassword });
 
                     user.save(function(error, result) {
                         if (error) {
