@@ -46,7 +46,7 @@ module.exports = {
             } else {
                 // If email does not exist, result will be null or length of 0 (empty)
                 if (result === null || result.length === 0) {
-                    response.json({success: false, message: 'Email not found'});
+                    response.json({success: false, error: 'Email not found'});
                 // If email exists, run bcrypt compare
                 } else {
                     bcrypt.compare(request.body.password, result.password, function(error, boolean) {

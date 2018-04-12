@@ -7,22 +7,20 @@
   <div class='row justify-content-around'>
     <div class='col-4'>
       <!-- Login Form -->
-      <form (ngSubmit)='login()' id='loginForm'>
-        <!-- <p> {{ user | json }} </p> -->
+      <form (ngSubmit)='login()' id='loginForm' [formGroup]='userLogin'>
         <div class='form-group'>
-          <label for='email'> Email Address </label>
-          <input type='text' class='form-control' [(ngModel)]='user.email' name='email'>
+          <label for='loginEmail'> Email Address </label>
+          <input type='text' id='loginEmail' formControlName='email' name='loginEmail'>
         </div>
-        <!-- Display error if email field is empty -->
-        <p ng-show='loginFieldBoolean.emailField' class='showError' [ngClass]="{'error-field': !loginFieldBoolean.emailField}"> Empty Email Field </p>
         <div class='form-group'>
-          <label for='password'> Password </label> 
-          <input type='password' class='form-control' [(ngModel)]='user.password' name='password'>
+          <label for='loginPassword'> Password </label> 
+          <input type='password' id='loginPassword' formControlName='password' name='loginPassword'>
+         <!-- Form validation errors for password -->
+         <p class='error' *ngIf='userLogin.invalid'> Invalid fields present </p>
+         <!-- Display error if any from db -->
+         <p class='error' *ngIf='errors'> {{ errors }} </p>
+         <!-- End -->
         </div>
-        <!-- Display error if password field is empty -->
-        <p ng-show='loginFieldBoolean.passwordField' class='showError' [ngClass]="{'error-field': !loginFieldBoolean.passwordField}"> Empty Password Field </p>
-        <!-- Display error if any from db -->
-        <p ng-show='loginFieldBoolean.errorDisplay' class='showError' [ngClass]="{'error-field': !loginFieldBoolean.errorDisplay}"> {{ errors }} </p>
         <button> Login </button>
       </form>
       <!-- End of Login Form -->

@@ -10,17 +10,19 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./login-registration.component.css']
 })
 export class LoginRegistrationComponent implements OnInit {
-  newUser: any;
-  user: any;
-  loginFieldBoolean: any;
   errors: any;
 
   registration: FormGroup;
+  userLogin: FormGroup;
+
   fullName: FormControl;
   email: FormControl;
   password: FormControl;
   confirmPassword: FormControl;
   alias: FormControl;
+
+  loginEmail: FormControl;
+  loginPassword: FormControl;
 
 
   constructor(private _registerService: RegisterService, private _loginService: LoginService, private router: Router) { }
@@ -28,16 +30,6 @@ export class LoginRegistrationComponent implements OnInit {
   ngOnInit() {
     this.createFormControls();
     this.createForm();
-    // 2-way binding
-    this.user = {
-      email: '',
-      password: ''
-    }
-    this.loginFieldBoolean = {
-      emailField: false,
-      passwordField: false,
-      errorDisplay: false
-    }
   }
 
   // Create FormControls as part of component properties
@@ -47,10 +39,20 @@ export class LoginRegistrationComponent implements OnInit {
     this.alias = new FormControl('', Validators.required),
     this.password = new FormControl('', [Validators.required, Validators.minLength(5)]),
     this.confirmPassword = new FormControl('', Validators.required)
+
+    this.loginEmail = new FormControl('', Validators.required),
+    this.loginPassword = new FormControl('', Validators.required)
+
   }
 
   // Bind FormControls to FormGroup model as properties
   createForm() {
+    // Login model
+    this.userLogin = new FormGroup({
+      email: this.loginEmail,
+      password: this.loginPassword
+    })
+    // Registration model
     this.registration = new FormGroup({
       fullName: this.fullName,
       email: this.email,
@@ -68,14 +70,15 @@ export class LoginRegistrationComponent implements OnInit {
     // IF above is good, proceed to create register new user
     } else {
       console.log('Form successfully submitted- Valid fields present');
-      let observable = this._registerService.registerUser(this.newUser);
+      let observable = this._registerService.registerUser(this.registration.value);
       observable.subscribe(data => {
         console.log(data);
         if (data['errors']) {
           console.log(data['errors']);
         } else {
-          // Return registered user's information
+          // Return registered user's information & navigate to home component
           console.log(data);
+          this.router.navigate(['/home']);
           console.log('Successful creation');
         }
       })
@@ -84,32 +87,16 @@ export class LoginRegistrationComponent implements OnInit {
 
   login() {
     console.log('Login at login-registration component pinging');
-    // Check if email field or password field is empty
-    if (this.user.email === '' && this.user.password === '') {
-      this.loginFieldBoolean.errorDisplay = false;
-      this.loginFieldBoolean.emailField = true;
-      this.loginFieldBoolean.passwordField = true;
-    // Check if email field is empty
-    } else if (this.user.email === '') {
-      this.loginFieldBoolean.errorDisplay = false;
-      this.loginFieldBoolean.passwordField = false;
-      this.loginFieldBoolean.emailField = true;
-      console.log('Email Field is empty');
-    // Check if password field is empty
-    } else if (this.user.password === '') {
-      this.loginFieldBoolean.errorDisplay = false;
-      this.loginFieldBoolean.emailField = false;
-      this.loginFieldBoolean.passwordField = true;
-      console.log('Password Field is empty');
-    // If above is good, proceed to validate login information
+    if (this.userLogin.invalid) {
+      console.log(this.userLogin.value);
+      console.log(this.userLogin);
+      console.log('Unsuccessful login- Invalid fields present');
+    // IF above is good, proceed to login service.ts
     } else {
-      this.loginFieldBoolean.emailField = false;
-      this.loginFieldBoolean.passwordField = false;
-      let observable = this._loginService.loginUser(this.user);
+      let observable = this._loginService.loginUser(this.userLogin.value);
       observable.subscribe(data => {
         console.log('Observable data he re ', data);
         if (data['error'] && data['success'] === false) {
-          this.loginFieldBoolean.errorDisplay = true;
           this.errors = data['error'];
         } else if (data['profile'] && data['success'] === true) {
           this.router.navigate(['/home']);
